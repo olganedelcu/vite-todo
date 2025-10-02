@@ -1,4 +1,4 @@
-import { Form, Link } from "react-router";
+import { Form } from "react-router";
 import type { Route } from "./+types/todos";
 import { getAllTodos, addTodo, toggleTodo, deleteTodo } from "../lib/todos.server";
 
@@ -50,14 +50,8 @@ export default function Todos({ loaderData }: Route.ComponentProps) {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
-        <div className="flex items-center justify-between mb-6">
+        <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-800">Todos</h1>
-          <Link
-            to="/"
-            className="text-blue-500 hover:text-blue-700 text-sm"
-          >
-            ← Back to Home
-          </Link>
         </div>
         
         {/* Add todo form */}
