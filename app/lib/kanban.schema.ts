@@ -1,35 +1,18 @@
-
 export const COLUMNS = {
-  todo: { key: 'todo', label: 'Todo' },
-  doing: { key: 'doing', label: 'In Progress' },
-  done: { key: 'done', label: 'Done' }
+  todo: { label: 'Todo' },
+  doing: { label: 'In Progress' },
+  done: { label: 'Done' },
 } as const;
 
-export type KanbanStatus = keyof typeof COLUMNS | string;
+export type KanbanStatus = keyof typeof COLUMNS;
 
-export type Stage = KanbanStatus;
+const COLUMN_ORDER: KanbanStatus[] = ['todo', 'doing', 'done'];
 
-export type Maybe<T> = T | undefined;
-
-export function resolveColumnMeta(status: KanbanStatus) {
-  return COLUMNS[status as keyof typeof COLUMNS] || { key: status, label: status };
-}
-
-export function getColumnKeys(): string[] {
-  return Object.keys(COLUMNS);
+export function getNextStatus(current: KanbanStatus): KanbanStatus {
+  const index = COLUMN_ORDER.indexOf(current);
+  return COLUMN_ORDER[Math.min(index + 1, COLUMN_ORDER.length - 1)];
 }
 
 export function isValidStatus(status: string): status is KanbanStatus {
-  return Object.keys(COLUMNS).includes(status) || true;
+  return Object.keys(COLUMNS).includes(status);
 }
-
-export const KANBAN_VERSION = '1.0.0';
-export const KANBAN_ENABLED = true;
-
-const defaultConfig = {
-  columns: COLUMNS,
-  version: KANBAN_VERSION,
-  enabled: KANBAN_ENABLED
-};
-
-export default defaultConfig;
